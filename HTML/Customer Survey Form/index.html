@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Survey Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 600px;
+            width: 100%;
+            margin: auto;
+        }
+
+        .form-header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .form-body {
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .gender-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .gender-checkbox label {
+            margin-left: 15px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        button[type="reset"] {
+            background-color: #f44336;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <div class="form-header">Customer Survey Form</div>
+
+        <div class="form-body">
+            <form id="surveyForm" onsubmit="submitForm(); return false;">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" required>
+
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" required>
+
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" required>
+
+                <label for="country">Country:</label>
+                <select id="country" required>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="Canada">Canada</option>
+                    <!-- Add more countries as needed -->
+                </select>
+
+                <div class="gender-checkbox">
+                    <label>Gender:</label>
+                    <input type="checkbox" id="maleCheckbox"> <label for="maleCheckbox">Male</label>
+                    <input type="checkbox" id="femaleCheckbox"> <label for="femaleCheckbox">Female</label>
+                </div>
+
+                <label for="profession">Profession:</label>
+                <input type="text" id="profession" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+
+                <label for="mobileNumber">Mobile Number:</label>
+                <input type="tel" id="mobileNumber" required>
+
+                <button type="submit">Submit</button>
+                <button type="reset" onclick="resetForm()">Reset</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="popup" class="popup"></div>
+
+    <script>
+        function submitForm() {
+
+            // Get form values
+            var firstName = document.getElementById("firstName").value;
+            var lastName = document.getElementById("lastName").value;
+            var dob = document.getElementById("dob").value;
+            var country = document.getElementById("country").value;
+
+            var gender = "";
+            if (document.getElementById("maleCheckbox").checked) {
+                gender = "Male";
+            }
+            if (document.getElementById("femaleCheckbox").checked) {
+                gender = "Female";
+            }
+            
+            var profession = document.getElementById("profession").value;
+            var email = document.getElementById("email").value;
+            var mobileNumber = document.getElementById("mobileNumber").value;
+
+            // Display the values in a popup
+            var message = "<h2>Survey Form Submission</h2>" +
+                          "<strong>First Name:</strong> " + firstName + "<br>" +
+                          "<strong>Last Name:</strong> " + lastName + "<br>" +
+                          "<strong>Date of Birth:</strong> " + dob + "<br>" +
+                          "<strong>Country:</strong> " + country + "<br>" +
+                          "<strong>Gender:</strong> " + gender + "<br>" +
+                          "<strong>Profession:</strong> " + profession + "<br>" +
+                          "<strong>Email:</strong> " + email + "<br>" +
+                          "<strong>Mobile Number:</strong> " + mobileNumber;
+
+            document.getElementById("popup").innerHTML = message;
+            document.getElementById("popup").style.display = "block";
+
+            // Reset the form
+            document.getElementById("surveyForm").reset();
+        }
+
+        function resetForm() {
+            // Reset the form without submitting
+            document.getElementById("surveyForm").reset();
+        }
+
+        // Close the popup on clicking outside of it
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("popup")) {
+                document.getElementById("popup").style.display = "none";
+            }
+        };
+    </script>
+
+</body>
+</html>
